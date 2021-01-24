@@ -1,0 +1,31 @@
+﻿@page "/counter"
+@inject SampleService.Lazy.SampleService SampleService
+
+<h1>Counter</h1>
+
+<h2>@Name</h2>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    public string Name { get; set; }
+
+    private int currentCount = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            Name = SampleService.Name;
+            StateHasChanged();
+        }
+    }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
